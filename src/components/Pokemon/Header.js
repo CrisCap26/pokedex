@@ -29,7 +29,7 @@ export default function Header(props) {
 const styles = StyleSheet.create({
     bg: {
         width: '100%',
-        height: 400,
+        height: 430,
         position: "absolute",
         borderBottomEndRadius: 300,
         borderBottomLeftRadius: 300,
@@ -49,10 +49,12 @@ const styles = StyleSheet.create({
         color: 'white',
         fontWeight: 'bold',
         fontSize: 27,
+        marginTop: 30,
     },
     order: {
         color: "#fff",
         fontWeight: 'bold',
+        marginTop: 30,
     },
     contentImg: {
         flex: 1,

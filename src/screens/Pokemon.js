@@ -5,6 +5,8 @@ import { getPokemonDetailsApi } from '../api/pokemon';
 import Header from '../components/Pokemon/Header';
 import Type from '../components/Pokemon/Type';
 import Stats from '../components/Pokemon/Stats';
+import Favorite from '../components/Pokemon/Favorite';
+import useAuth from '../hooks/useAuth';
 
 export default function Pokemon(props) {
   const {
@@ -12,16 +14,18 @@ export default function Pokemon(props) {
     route: { params },
   } = props;
   const [pokemon, setPokemon] = useState(null);
+  const { auth } = useAuth();
 
   useEffect(() => {
+    console.log(params.id, "pokemon")
     navigation.setOptions({
-      headerRight: () => null,
+      headerRight: () => (auth ? <Favorite id={params?.id} /> : null),
       headerLeft: () => (
-        <Icon 
+        <Icon
           name='arrow-left'
-          color="#fff" 
-          size={20}
-          style={{ marginLeft: 0}}
+          color="#fff"
+          size={30}
+          style={{ marginLeft: 0 }}
           onPress={navigation.goBack}
         />
       ),
@@ -39,17 +43,17 @@ export default function Pokemon(props) {
     })()
   }, [params]);
 
-  if(!pokemon) return null;
+  if (!pokemon) return null;
 
   return (
     <ScrollView>
-      <Header 
+      <Header
         name={pokemon.name}
         order={pokemon.order}
         image={pokemon.sprites.other['official-artwork'].front_default}
         type={pokemon.types[0].type.name}
       />
-      <Type types={pokemon.types}/>
+      <Type types={pokemon.types} />
       <Stats stats={pokemon.stats} />
     </ScrollView>
   )
