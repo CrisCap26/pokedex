@@ -4,6 +4,7 @@ import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import { user, userDetails } from '../../utils/userDB'
 import useAuth from '../../hooks/useAuth'
+import { CustomBtn } from './UserData'
 
 export default function LoginForm() {
     const [error, setError] = useState("");
@@ -46,7 +47,11 @@ export default function LoginForm() {
                 value={formik.values.password}
                 onChangeText={(text) => formik.setFieldValue('password', text)}
             />
-            <Button title='Entrar' style={styles.button} onPress={formik.handleSubmit} />
+            {/* <Button title='Entrar' style={styles.button} onPress={formik.handleSubmit} /> */}
+
+            <View style={styles.contBtn}>
+                <CustomBtn title="Login" handleOnPress={formik.handleSubmit} />
+            </View>
 
             <Text style={styles.error}>
                 {formik.errors.username}{"\n"}{error}
@@ -95,5 +100,8 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         color: '#f00',
         marginTop: 20
+    },
+    contBtn: {
+        marginHorizontal: 20
     },
 })
