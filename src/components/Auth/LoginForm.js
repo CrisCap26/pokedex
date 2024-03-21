@@ -1,18 +1,31 @@
-import { StyleSheet, View, Text, TextInput, Button, Keyboard } from 'react-native'
-import React from 'react'
+import { StyleSheet, View, Text, TextInput, Button, Keyboard, ToastAndroid } from 'react-native'
+import React, { useState } from 'react'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
-import { initial } from 'lodash'
+import { user, userDetails } from '../../utils/userDB'
+import useAuth from '../../hooks/useAuth'
 
 export default function LoginForm() {
+    const [error, setError] = useState("");
+    const { login } = useAuth();
 
     const formik = useFormik({
         initialValues: initialValues(),
         validationSchema: Yup.object(validationSchema()),
         validateOnChange: false,
         onSubmit: (formValue) => {
-            console.log("Formulario enviado...");
-            console.log(formValue)
+            setError("")
+            const { username, password } = formValue
+            if (username !== user.username || password !== user.password) {
+                setError("Usuario o contraseña incorrecto")
+                //console.log("Usuario o contraseña incorrecto")
+                //ToastAndroid.show("Usuario o contraseña incorrecto", ToastAndroid.SHORT)
+            } else {
+                //console.log("Login correcto :)");
+                login(userDetails)
+                ToastAndroid.show("Login correcto :)", ToastAndroid.SHORT)
+                console.log(userDetails);
+            }
         },
     });
     return (
@@ -23,7 +36,7 @@ export default function LoginForm() {
                 style={styles.input}
                 autoCapitalize='none'
                 value={formik.values.username}
-                onChangeText={(text) => formik.setFieldValue('username', text) }
+                onChangeText={(text) => formik.setFieldValue('username', text)}
             />
             <TextInput
                 placeholder='Contraseña'
@@ -35,8 +48,13 @@ export default function LoginForm() {
             />
             <Button title='Entrar' style={styles.button} onPress={formik.handleSubmit} />
 
-            <Text style={styles.error}>{formik.errors.username}</Text>
-            <Text style={styles.error}>{formik.errors.password}</Text>
+            <Text style={styles.error}>
+                {formik.errors.username}{"\n"}{error}
+                {"\n"}{formik.errors.password}
+            </Text>
+
+            {/* <Text style={styles.error}>{formik.errors.username}</Text>
+            <Text style={styles.error}>{formik.errors.password}</Text> */}
         </View>
     )
 }
