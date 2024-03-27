@@ -44,14 +44,18 @@ function ItemMenu(props) {
 }
 
 export function CustomBtn(props) {
-    const { title, handleOnPress } = props;
+    const { title, handleOnPress, addStyles } = props;
+    // const newStyles = [
+    //     styles,
+    //     addStyles && addStyles.text,
+    // ]
     return (
        <View style={styles.contentBtn}>
          <TouchableOpacity
             style={styles.btnCustom}
             onPress={handleOnPress}
         >
-            <Text style={styles.textBtn}>{title}</Text>
+            <Text style={addStyles ? addStyles.btn : styles.textBtn}>{title}</Text>
         </TouchableOpacity>
        </View>
     )

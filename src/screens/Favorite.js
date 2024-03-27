@@ -5,6 +5,7 @@ import { getPokemonsFavoriteApi } from '../api/favorite'
 import { getPokemonDetailsApi } from '../api/pokemon'
 import useAuth from '../hooks/useAuth'
 import PokemonList from '../components/PokemonList'
+import NotLogged from '../components/NotLogged'
 
 export default function Favorite() {
   const [pokemons, setPokemons] = useState([]);
@@ -15,8 +16,6 @@ export default function Favorite() {
       if (auth) {
         (async () => {
           const response = await getPokemonsFavoriteApi();
-          console.log(response, "UseEff")
-
           const pokemonsArray = [];
           for await (const id of response) {
             const pokemonDetail = await getPokemonDetailsApi(id);
@@ -38,7 +37,7 @@ export default function Favorite() {
 
 
   return !auth ?
-    (<Text>Usuario no logueado</Text>)
+    (<NotLogged />)
     :
     (<PokemonList pokemons={pokemons} />)
 }

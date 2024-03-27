@@ -39,7 +39,7 @@ export default function Pokedex() {
   }
 
   return (
-    <View>
+    <View style={{marginTop: 20}}>
       <PokemonList 
         pokemons={pokemons} 
         loadPokemons={loadPokemons}
