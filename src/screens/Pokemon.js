@@ -29,7 +29,7 @@ export default function Pokemon(props) {
         />
       ),
     })
-  }, [navigation, params, pokemon])
+  }, [navigation, params, pokemon, auth])
 
   useEffect(() => {
     (async () => {
