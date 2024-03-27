@@ -5,12 +5,13 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import AccountNavigation from './AccountNavigation';
 import PokedexNavigation from './PokedexNavigation';
 import FavoriteNavigation from './FavoriteNavigation';
+import { initial } from 'lodash';
 
 const Tab = createBottomTabNavigator();
 
 export default function Navigation() {
   return (
-    <Tab.Navigator screenOptions={{headerShown: false}}>
+    <Tab.Navigator screenOptions={{headerShown: false}} initialRouteName="pokedex">
         <Tab.Screen 
             name="favorite" 
             component={FavoriteNavigation} 
